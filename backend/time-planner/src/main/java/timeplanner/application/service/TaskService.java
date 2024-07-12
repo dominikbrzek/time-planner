@@ -1,7 +1,6 @@
 package timeplanner.application.service;
 
 import timeplanner.application.model.TaskDTO;
-import timeplanner.application.model.TaskPriority;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,5 +25,4 @@ public interface TaskService {
 
     List<TaskDTO> getAllTasks();
 
-    void updateTaskPriority(UUID id, TaskPriority priority);
 }

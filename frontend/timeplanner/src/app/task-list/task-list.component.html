@@ -1,0 +1,57 @@
+<h2> Lista zadań </h2>
+<button (click)="toggleEdit(taskToAdd)" class="btn btn-primary">Dodaj zadanie</button>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th> Tytuł</th>
+    <th> Opis</th>
+    <th> Termin wykonania</th>
+    <th> Priorytet</th>
+    <th> Estymacja</th>
+    <th> Actions</th>
+  </tr>
+  </thead>
+  <tr *ngIf="taskToAdd.isEditing">
+    <td><input [(ngModel)]="taskToAdd.title" placeholder="Title"></td>
+    <td><input [(ngModel)]="taskToAdd.description" placeholder="Description"></td>
+    <td><input [(ngModel)]="taskToAdd.deadline" placeholder="Deadline" type="datetime-local"></td>
+    <td>
+      <select [(ngModel)]="taskToAdd.priority">
+        <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+      </select>
+    </td>
+    <td><input [(ngModel)]="taskToAdd.estimation" placeholder="Estimation"></td>
+    <td>
+      <button (click)="addTask()" class="btn btn-success">Zapisz</button>
+      <button (click)="cancelEdit(taskToAdd)" class="btn btn-secondary">Anuluj</button>
+    </td>
+  </tr>
+  <tbody *ngFor="let task of tasks">
+  <tr *ngIf="!task.isEditing">
+    <td>{{ task.title }}</td>
+    <td>{{ task.description }}</td>
+    <td>{{ task.deadline }}</td>
+    <td>{{ task.priority }}</td>
+    <td>{{ task.estimation }}</td>
+    <td>
+      <button (click)="toggleEdit(task)" class="btn btn-primary">Edytuj</button>
+      <button (click)="deleteTask(task.id)" class="btn btn-danger"> Usuń</button>
+    </td>
+  </tr>
+  <tr *ngIf="task.isEditing">
+    <td><input [(ngModel)]="task.title" placeholder="Title"></td>
+    <td><input [(ngModel)]="task.description" placeholder="Description"></td>
+    <td><input [(ngModel)]="task.deadline" placeholder="Deadline" type="datetime-local"></td>
+    <td>
+      <select [(ngModel)]="task.priority">
+        <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+      </select>
+    </td>
+    <td><input [(ngModel)]="task.estimation" placeholder="Estimation"></td>
+    <td>
+      <button (click)="saveTask(task)" class="btn btn-success">Zapisz</button>
+      <button (click)="cancelEdit(task)" class="btn btn-secondary">Anuluj</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

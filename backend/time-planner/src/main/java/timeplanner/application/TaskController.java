@@ -19,6 +19,7 @@ import java.util.UUID;
  * @author dominik.brzek
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api/v1/task",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,16 +53,15 @@ public class TaskController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateTaskPriority(@PathVariable("id") UUID id, @RequestParam("priority") TaskPriority priority) {
-        taskService.updateTaskPriority(id, priority);
-        return ResponseEntity.ok(null);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable("id") UUID id) {
         taskService.deleteTask(id);
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/priorities")
+    public ResponseEntity<List<String>> getPriorities() {
+        return ResponseEntity.ok(TaskPriority.getNames());
     }
 
 }

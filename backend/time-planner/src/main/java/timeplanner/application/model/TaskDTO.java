@@ -22,7 +22,7 @@ public class TaskDTO {
     private UUID id;
     private String title;
     private String description;
-    private TaskPriority priority;
+    private String priority;
     private LocalDateTime deadline;
     private String estimation;
 }

@@ -57,19 +57,13 @@ public class TaskServiceImpl implements TaskService {
                 .map(this::mapFromEntity).toList();
     }
 
-    @Override
-    public void updateTaskPriority(UUID id, TaskPriority priority) {
-        repository.updatePriorityById(id, priority.getValue());
-
-    }
-
     private TaskDTO mapFromEntity(TaskEntity entity) {
         TaskDTO dto = new TaskDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setEstimation(entity.getEstimation());
-        dto.setPriority(entity.getPriority());
+        dto.setPriority(entity.getPriority().getName());
         dto.setDeadline(entity.getDeadline());
         return dto;
     }
@@ -78,7 +72,7 @@ public class TaskServiceImpl implements TaskService {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setDeadline(dto.getDeadline());
-        entity.setPriority(dto.getPriority());
+        entity.setPriority(TaskPriority.fromName(dto.getPriority()));
         entity.setEstimation(dto.getEstimation());
     }
 }

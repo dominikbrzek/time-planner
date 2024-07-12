@@ -1,0 +1,58 @@
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h2>{{ priorities[0] }}</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="sortedTasks[priorities[0]]"
+      class="example-list"
+      cdkDropListSortingDisabled
+      (cdkDropListDropped)="drop($event)">
+      @for (item of sortedTasks[priorities[0]]; track item) {
+        <div *ngIf="item.title.length >0" class="example-box" cdkDrag>{{ item.title }}</div>
+      }
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>{{ priorities[1] }}</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="sortedTasks[priorities[1]]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of sortedTasks[priorities[1]]; track item) {
+        <div *ngIf="item.title.length >0" class="example-box" cdkDrag>{{ item.title }}</div>
+      }
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>{{ priorities[2] }}</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="sortedTasks[priorities[2]]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of sortedTasks[priorities[2]]; track item) {
+        <div *ngIf="item.title.length >0" class="example-box" cdkDrag>{{ item.title }}</div>
+      }
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>{{ priorities[3] }}</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="sortedTasks[priorities[3]]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of sortedTasks[priorities[3]]; track item) {
+        <div *ngIf="item.title.length >0" class="example-box" cdkDrag>{{ item.title }}</div>
+      }
+    </div>
+  </div>
+</div>
