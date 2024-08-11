@@ -8,7 +8,7 @@
     <th> Termin wykonania</th>
     <th> Priorytet</th>
     <th> Estymacja</th>
-    <th> Actions</th>
+    <th> Akcje</th>
   </tr>
   </thead>
   <tr *ngIf="taskToAdd.isEditing">
@@ -23,7 +23,7 @@
     <td><input [(ngModel)]="taskToAdd.estimation" placeholder="Estimation"></td>
     <td>
       <button (click)="addTask()" class="btn btn-success">Zapisz</button>
-      <button (click)="cancelEdit(taskToAdd)" class="btn btn-secondary">Anuluj</button>
+      <button (click)="toggleEdit(taskToAdd)" class="btn btn-secondary">Anuluj</button>
     </td>
   </tr>
   <tbody *ngFor="let task of tasks">
@@ -36,6 +36,7 @@
     <td>
       <button (click)="toggleEdit(task)" class="btn btn-primary">Edytuj</button>
       <button (click)="deleteTask(task.id)" class="btn btn-danger"> Usuń</button>
+      <button (click)="toggleSubtaskEdit(subtaskToAdd, task.id)" class="btn btn-danger"> Dodaj podzadanie</button>
     </td>
   </tr>
   <tr *ngIf="task.isEditing">
@@ -50,8 +51,35 @@
     <td><input [(ngModel)]="task.estimation" placeholder="Estimation"></td>
     <td>
       <button (click)="saveTask(task)" class="btn btn-success">Zapisz</button>
-      <button (click)="cancelEdit(task)" class="btn btn-secondary">Anuluj</button>
+      <button (click)="toggleEdit(task)" class="btn btn-secondary">Anuluj</button>
     </td>
+  </tr>
+
+  <tr *ngIf="subtaskToAdd.isEditing && subtaskToAdd.taskId === task.id">
+    <td><input [(ngModel)]="subtaskToAdd.title" placeholder="Title"></td>
+    <td><input [(ngModel)]="subtaskToAdd.description" placeholder="Description"></td>
+    <td>
+      <button (click)="addSubtask(task)" class="btn btn-success">Zapisz podzadanie</button>
+      <button (click)="toggleSubtaskEdit(subtaskToAdd, task.id)" class="btn btn-secondary">Anuluj</button>
+    </td>
+  </tr>
+  <tr *ngFor="let subtask of task.subtasks">
+    <div *ngIf="!subtask.isEditing">
+      <td>{{ subtask.title }}</td>
+      <td>{{ subtask.description }}</td>
+      <td>
+        <button (click)="toggleSubtaskEdit(subtask, task.id)" class="btn btn-success">Edytuj podzadanie</button>
+        <button (click)="deleteSubtask(subtask, task)" class="btn btn-secondary">Usuń podzadanie</button>
+      </td>
+    </div>
+    <div *ngIf="subtask.isEditing">
+      <td><input [(ngModel)]="subtask.title" placeholder="Title"></td>
+      <td><input [(ngModel)]="subtask.description" placeholder="Description"></td>
+      <td>
+        <button (click)="saveSubtask(subtask)" class="btn btn-success">Zapisz</button>
+        <button (click)="toggleSubtaskEdit(subtask, task.id)" class="btn btn-secondary">Anuluj</button>
+      </td>
+    </div>
   </tr>
   </tbody>
 </table>

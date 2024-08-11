@@ -1,54 +1,54 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Task} from "../model/task";
-import {v4 as uuid} from "uuid";
+import {Subtask} from "../model/subtask";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor(private httpClient: HttpClient) {}
-  private baseURL = "http://localhost:8080/api/v1/task"
-
   httpOptions = {
     headers: new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Accept': 'application/json', 'Content-Type': 'application/json'
     })
   };
+  private taskBaseURL = "http://localhost:8080/api/v1/task"
+  private subtaskBaseURL = "http://localhost:8080/api/v1/subtask"
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   getTasks(): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(`${this.baseURL}`, this.httpOptions);
+    return this.httpClient.get<Task[]>(`${this.taskBaseURL}`, this.httpOptions);
   }
 
   getPriorities(): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${this.baseURL + "/priorities"}`, this.httpOptions);
+    return this.httpClient.get<string[]>(`${this.taskBaseURL + "/priorities"}`, this.httpOptions);
   }
 
   deleteTask(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.baseURL + "/" + id}`, this.httpOptions);
+    return this.httpClient.delete(`${this.taskBaseURL + "/" + id}`, this.httpOptions);
+  }
+
+  deleteSubtask(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.subtaskBaseURL + "/" + id}`, this.httpOptions);
   }
 
   addTask(task: Task): Observable<any> {
-    return this.httpClient.post(`${this.baseURL}`, task, this.httpOptions);
+    return this.httpClient.post(`${this.taskBaseURL}`, task, this.httpOptions);
+  }
+
+  addSubtask(task: Subtask): Observable<any> {
+    return this.httpClient.post(`${this.subtaskBaseURL}`, task, this.httpOptions);
   }
 
   updateTask(task: Task): Observable<any> {
-    return this.httpClient.put(`${this.baseURL}`, task, this.httpOptions);
+    return this.httpClient.put(`${this.taskBaseURL}`, task, this.httpOptions);
   }
 
-
-  updateTaskPriority(id: string, priority: string): Observable<any> {
-    let options = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        "Priority": priority
-      })};
-
-    console.log(id, priority)
-    return this.httpClient.put(`${this.baseURL }`, options);
+  updateSubtask(subtask: Subtask): Observable<any> {
+    return this.httpClient.put(`${this.subtaskBaseURL}`, subtask, this.httpOptions);
   }
 }

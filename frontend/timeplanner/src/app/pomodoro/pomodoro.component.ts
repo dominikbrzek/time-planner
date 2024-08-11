@@ -9,4 +9,19 @@ import { Component } from '@angular/core';
 })
 export class PomodoroComponent {
 
+  breakLength: number = 5;
+  sessionLength: number = 25;
+  sessionType: string = "Praca"
+  timeLeft: number = this.sessionLength
+
+
+
+  // cykle pomodoro
+  // ilość cykli podana na dole
+  // długość przerwy w minutach
+  // długość pracy w minutach
+  // guzik i formularz do zmiany konfiguracji
+
+
+
 }
