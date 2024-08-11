@@ -3,13 +3,11 @@ package timeplanner.application.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 
 /**
- * Task DTO
+ * Subtask DTO
  * <br>
  * <p/>
  * Creation date: 11.07.2024<br>
@@ -18,13 +16,10 @@ import java.util.UUID;
  */
 @Setter
 @Getter
-public class TaskDTO {
+public class SubtaskDTO {
 
     private UUID id;
+    private UUID taskId;
     private String title;
     private String description;
-    private String priority;
-    private LocalDateTime deadline;
-    private String estimation;
-    private List<SubtaskDTO> subtasks;
 }

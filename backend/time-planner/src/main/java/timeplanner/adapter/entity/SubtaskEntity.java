@@ -5,26 +5,23 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
-import timeplanner.application.model.TaskPriority;
 
 import java.sql.Types;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 /**
- * Task entity
+ * Subtask entity
  * <br>
  * <p/>
- * Creation date: 11.07.2024<br>
+ * Creation date: 11.08.2024<br>
  *
  * @author dominik.brzek
  */
 @Entity
 @Setter
 @Getter
-@Table(name = "TASKS")
-public class TaskEntity {
+@Table(name = "SUBTASKS")
+public class SubtaskEntity {
     @Id
     @Column(name = "ID")
     @JdbcTypeCode(Types.VARCHAR)
@@ -32,22 +29,14 @@ public class TaskEntity {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "TASK_ID")
+    private TaskEntity task;
+
     @Column(name = "TITLE")
     private String title;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PRIORITY")
-    @Enumerated(EnumType.STRING)
-    private TaskPriority priority;
-
-    @Column(name = "ESTIMATION")
-    private String estimation;
-
-    @Column(name = "DEADLINE")
-    private LocalDateTime deadline;
-
-    @OneToMany(mappedBy = "task")
-    private List<SubtaskEntity> subtasks;
 }

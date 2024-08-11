@@ -1,8 +1,10 @@
 package timeplanner.adapter.service;
 
 import org.springframework.stereotype.Service;
+import timeplanner.adapter.entity.SubtaskEntity;
 import timeplanner.adapter.entity.TaskEntity;
 import timeplanner.adapter.repository.TaskEntityRepository;
+import timeplanner.application.model.SubtaskDTO;
 import timeplanner.application.model.TaskDTO;
 import timeplanner.application.model.TaskPriority;
 import timeplanner.application.service.TaskService;
@@ -41,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(TaskDTO taskDTO) {
-        TaskEntity entity = repository.getReferenceById(taskDTO.getId());
+        TaskEntity entity = repository.findById(taskDTO.getId()).orElseThrow();
         updateEntity(entity, taskDTO);
         repository.save(entity);
     }
@@ -65,6 +67,18 @@ public class TaskServiceImpl implements TaskService {
         dto.setEstimation(entity.getEstimation());
         dto.setPriority(entity.getPriority().getName());
         dto.setDeadline(entity.getDeadline());
+        if (entity.getSubtasks() != null) {
+            dto.setSubtasks(entity.getSubtasks().stream().map(this::map).toList());
+        }
+        return dto;
+    }
+
+    private SubtaskDTO map(SubtaskEntity entity) {
+        SubtaskDTO dto = new SubtaskDTO();
+        dto.setId(entity.getId());
+        dto.setTaskId(entity.getTask().getId());
+        dto.setTitle(entity.getTitle());
+        dto.setDescription(entity.getDescription());
         return dto;
     }
 
