@@ -13,3 +13,7 @@ spring:
     show_sql: true
   flyway:
     enabled: true
+properties:
+  default-session-length: 25
+  default-break-length: 5
+  default-round-count: 5
