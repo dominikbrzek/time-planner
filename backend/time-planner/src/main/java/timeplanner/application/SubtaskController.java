@@ -1,5 +1,6 @@
 package timeplanner.application;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,18 +31,21 @@ public class SubtaskController {
     }
 
     @PostMapping
+    @Operation(summary = "Dodaj nowe podzadanie")
     public ResponseEntity<Void> addSubtask(@RequestBody SubtaskDTO subtaskDTO) {
         service.addSubtask(subtaskDTO);
         return ResponseEntity.ok(null);
     }
 
     @PutMapping
+    @Operation(summary = "Zmodyfikuj istniejące podzadanie")
     public ResponseEntity<Void> updateSubtask(@RequestBody SubtaskDTO taskDTO) {
         service.updateSubtask(taskDTO);
         return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Usuń istniejące podzadanie")
     public ResponseEntity<Void> deleteSubtask(@PathVariable("id") UUID id) {
         service.deleteSubtask(id);
         return ResponseEntity.ok(null);

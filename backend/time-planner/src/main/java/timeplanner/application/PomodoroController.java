@@ -1,5 +1,6 @@
 package timeplanner.application;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +29,13 @@ public class PomodoroController {
     }
 
     @GetMapping
+    @Operation(summary = "Pobierz ustawienia czasomierza Pomodoro")
     public ResponseEntity<PomodoroConfigDTO> getConfig() {
         return ResponseEntity.ok(pomodoroService.getConfig());
     }
 
     @PutMapping
+    @Operation(summary = "Zmodyfikuj ustawienia czasomierza Pomodoro")
     public ResponseEntity<Void> updateConfig(@RequestBody PomodoroConfigDTO taskDTO) {
         pomodoroService.updateConfig(taskDTO);
         return ResponseEntity.ok(null);
